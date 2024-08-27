@@ -1,0 +1,61 @@
+/* Body background color (commented out) */
+/* body {
+    background-color: rgb(240, 132, 150);
+} */
+
+/* Navbar styling */
+.navbar {
+    height: 5rem;
+    background-color: rgb(228, 122, 123) !important;
+}
+.icon{
+    color: #f39c12;
+    
+}
+
+.nav-link {
+    color: #222222 !important;
+}
+
+/* Footer styling */
+footer {
+    background-color: #333 !important;
+    color: #fff !important;
+    padding: 20px 0 !important;
+}
+
+.footer {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px !important;
+}
+
+.social-info {
+    display: flex;
+    gap: 15px;
+}
+
+.social-info i {
+    font-size: 24px !important;
+    cursor: pointer !important;
+    transition: color 0.3s !important;
+    color: #fff !important; /* Default color */
+}
+
+.social-info i:hover {
+    color: #f39c12 !important;
+}
+
+.links-info {
+    display: flex;
+    gap: 15px;
+}
+
+/* Adding styles for icons in the navbar */
+.navbar .fa-brands {
+    font-size: 24px !important;
+    color: #000 !important; /* Example color, adjust as needed */
+}

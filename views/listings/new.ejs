@@ -1,0 +1,37 @@
+
+
+<% layout("/layouts/boilerplate") %>
+
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Create New Place</h1>
+        <form action="/listings" method="POST" novalidate class="bg-light p-4 rounded shadow needs-validation">
+            <div class="mb-3">  
+                <label for="title" class="form-label"  >Title</label>
+                <input id="title" name="title" type="text" class="form-control" placeholder="Enter Title" required/>
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea id="description" name="description" class="form-control" placeholder="Enter Description" rows="3" required></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="price" class="form-label">Price</label>
+                <input id="price" name="price" type="number" class="form-control" placeholder="Enter Price" required/>
+            </div>
+            <div class="mb-3">
+                <label for="country" class="form-label">Country</label>
+                <input id="country" name="country" type="text" class="form-control" placeholder="Enter Country" required/>
+            </div>
+            <div class="mb-3">
+                <label for="location" class="form-label">Location</label>
+                <input id="location" name="location" type="text" class="form-control" placeholder="Enter Location" required/>
+            </div>
+            <div class="mb-3">
+                <label for="image" class="form-label">Image URL</label>
+                <input id="image" name="image" type="text" class="form-control" placeholder="Enter Image URL"/>
+            </div>
+            <button type="submit" class="btn btn-primary">Add</button>
+        </form>
+    </div>
+</body>
+

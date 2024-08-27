@@ -1,0 +1,24 @@
+<% layout("/layouts/boilerplate") %>
+
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Sign Up to My Site</h1>
+        <form action="/signup" method="POST" novalidate class="bg-light p-4 rounded shadow needs-validation">
+            <div class="form-group mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input id="username" name="username" type="text" class="form-control" placeholder="Enter Username" required/>
+            </div>
+            <div class="form-group mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input id="email" name="email" type="email" class="form-control" placeholder="Enter Email" required/>
+            </div>
+            <div class="form-group mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input id="password" name="password" type="password" class="form-control" placeholder="Enter Password" required/>
+            </div>
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary">Sign Up</button>
+            </div>
+        </form>
+    </div>
+</body>

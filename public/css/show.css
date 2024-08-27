@@ -1,0 +1,92 @@
+/* General Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2d3e1;
+    margin: 0;
+    padding: 0;
+}
+
+/* Card Container Styling */
+.card {
+    background-color: #f1dfdf;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Image Styling */
+img.img-fluid {
+    max-width: 35%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+/* List Styling */
+ul.list-unstyled {
+    padding-left: 0;
+    margin-bottom: 20px;
+}
+
+ul.list-unstyled li {
+    margin-bottom: 10px;
+    font-size: 1rem;
+}
+
+/* Text Styling */
+strong {
+    color: #333;
+}
+
+/* Button Styling */
+.btn-warning {
+    background-color: #ffc107;
+    border-color: #ffc107;
+}
+
+.btn-warning:hover {
+    background-color: #e0a800;
+    border-color: #d39e00;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+}
+
+/* Reviews Section */
+ul.list-group {
+    padding-left: 0;
+}
+
+.list-group-item {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 10px;
+}
+
+.needs-validation .form-range {
+    margin-top: 10px;
+}
+
+.invalid-feedback {
+    color: red;
+    font-size: 0.875rem;
+}
+
+.btn-outline-dark {
+    border-color: #333;
+    color: #333;
+}
+
+.btn-outline-dark:hover {
+    background-color: #333;
+    color: #fff;
+}
