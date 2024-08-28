@@ -14,6 +14,7 @@ const User = require("./models/user");
 const listings = require("./routes/listing");
 const review = require("./routes/review");
 const authentication = require("./routes/authentication");
+const flash = require("connect-flash");
 
 // Connect to MongoDB
 main()
@@ -42,11 +43,15 @@ const sessionOptions = {
     resave: false,
     saveUninitialized: true,
 };
+// Routes
+app.get("/", (req, res) => {
+    res.send("working");
+});
 
 app.use(session(sessionOptions));
+app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
-
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
@@ -56,14 +61,14 @@ app.use((req , res , next) => {
     next();
 });
 
-// Routes
-app.get("/", (req, res) => {
-    res.send("working");
-});
 
 
 
+app.use((req , res , next) => {
+    res.locals.success = req.flash("success");
+    next(); 
 
+})
 app.use("/listings" , listings);
 app.use("/listings" , review);
 app.use("/" , authentication);

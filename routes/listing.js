@@ -35,8 +35,8 @@ router.post("/", wrapAsync(async (req, res, next) => {
         country,
         image,
     });
-
     await listing.save();
+    req.flash("success" ,"new listing created");
     res.redirect("/listings");
 }));
 

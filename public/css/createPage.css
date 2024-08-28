@@ -9,6 +9,7 @@ body {
 /* Container styling */
 .container {
     max-width: 600px; /* Set a max width for the container */
+    padding: 5px; 
 }
 
 /* Form styling */
