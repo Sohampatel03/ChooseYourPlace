@@ -66,6 +66,7 @@ app.use((req , res , next) => {
 
 app.use((req , res , next) => {
     res.locals.success = req.flash("success");
+    res.locals.Delete = req.flash("Delete");
     next(); 
 
 })

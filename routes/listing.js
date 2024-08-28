@@ -3,6 +3,7 @@ const router = express.Router();
 const Listing = require("../models/listing");
 const wrapAsync = require("../utils/wrapAsync");
 const ExpressError = require("../utils/ExpressError");
+const {isLoggedIn} = require("../middleware");
 
 
 router.get("/", wrapAsync(async (req, res) => {
@@ -10,11 +11,7 @@ router.get("/", wrapAsync(async (req, res) => {
     res.render("listings/index.ejs", { allListings });
 }));
 
-router.get("/new", (req, res) => {
-    console.log(req.isAuthenticated ? "isAuthenticated exists" : "isAuthenticated missing");
-    if (!req.isAuthenticated()) {
-        return res.redirect('/signup');
-    }
+router.get("/new", isLoggedIn,(req, res) => {
     res.render("listings/new.ejs");
 });
 
@@ -36,7 +33,7 @@ router.post("/", wrapAsync(async (req, res, next) => {
         image,
     });
     await listing.save();
-    req.flash("success" ,"new listing created");
+    req.flash("success" ,"Successfully Created");
     res.redirect("/listings");
 }));
 
@@ -54,6 +51,7 @@ router.put("/:id", wrapAsync(async (req, res) => {
     let { id } = req.params;
     console.log(req.body);
     await Listing.findByIdAndUpdate(id, { ...req.body });
+    req.flash("success" , "Successfully Updated");
     res.redirect(`/listings/${id}`);
 }));
 
@@ -64,7 +62,7 @@ router.delete("/:id", wrapAsync(async (req, res) => {
     }
     let deletedata = await Listing.findByIdAndDelete(id);
     console.log(deletedata);
-
+    req.flash("Delete" , "Successfully Deleted");
     res.redirect("/listings");
 }));  
 
