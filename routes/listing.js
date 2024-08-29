@@ -6,6 +6,7 @@ const ExpressError = require("../utils/ExpressError");
 const {isLoggedIn} = require("../middleware");
 
 
+
 router.get("/", wrapAsync(async (req, res) => {
     const allListings = await Listing.find({});
     res.render("listings/index.ejs", { allListings });
@@ -37,13 +38,10 @@ router.post("/", wrapAsync(async (req, res, next) => {
     res.redirect("/listings");
 }));
 
-router.get("/:id/edit", wrapAsync(async (req, res) => {
+router.get("/:id/edit",  isLoggedIn,wrapAsync(async (req, res) => {
     let { id } = req.params;
     id = id.replace(/:/g, "").trim();
     const listing = await Listing.findById(id);
-    if (!req.isAuthenticated()) {
-        return res.redirect('/signup');
-    }
     res.render("listings/edit.ejs", { listing });
 }));
 
@@ -55,11 +53,8 @@ router.put("/:id", wrapAsync(async (req, res) => {
     res.redirect(`/listings/${id}`);
 }));
 
-router.delete("/:id", wrapAsync(async (req, res) => {
+router.delete("/:id", isLoggedIn,wrapAsync(async (req, res) => {
     let { id } = req.params;
-    if (!req.isAuthenticated()) {
-        return res.redirect('/signup');
-    }
     let deletedata = await Listing.findByIdAndDelete(id);
     console.log(deletedata);
     req.flash("Delete" , "Successfully Deleted");
