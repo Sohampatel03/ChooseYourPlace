@@ -19,7 +19,7 @@ router.get("/new", isLoggedIn,(req, res) => {
 router.get("/:id", wrapAsync(async (req, res) => {
     let { id } = req.params;
     id = id.replace(/:/g, "").trim();
-    const listing = await Listing.findById(id).populate("reviews");
+    const listing = await Listing.findById(id).populate("reviews").populate("owner");
     res.render("listings/show.ejs", { listing });
 }));
 

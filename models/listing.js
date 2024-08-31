@@ -1,7 +1,7 @@
 const mongoose  = require("mongoose");
 const Schema = mongoose.Schema;
 const Review = require("./review");
-const user = require("./user");
+const User = require("./user");
 
 const listingschema = new Schema({
     title :{
@@ -26,7 +26,7 @@ const listingschema = new Schema({
     ],
     owner : {
         type : Schema.Types.ObjectId,
-        ref : "user",
+        ref : "User",
     },
 });
 

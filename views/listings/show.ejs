@@ -4,6 +4,7 @@
         <!-- Card Section -->
         <div class="card shadow-lg p-4 bg-white rounded">
             <h1 class="text-center mb-4"><%= listing.title %></h1>
+            <p><strong>Username : </strong><%= listing.owner.username %></p>
             <img src="<%= listing.image %>" alt="Photo" class="img-fluid rounded mb-4">
             <ul class="list-unstyled">
                 <li><strong>Description:</strong> <%= listing.description %></li>
