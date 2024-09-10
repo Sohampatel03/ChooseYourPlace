@@ -33,6 +33,7 @@ router.post("/", wrapAsync(async (req, res, next) => {
         country,
         image,
     });
+    listing.owner = req.user._id;
     await listing.save();
     req.flash("success" ,"Successfully Created");
     res.redirect("/listings");

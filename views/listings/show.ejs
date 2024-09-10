@@ -12,12 +12,14 @@
                 <li><strong>Location:</strong> <%= listing.location %></li>
                 <li><strong>Country:</strong> <%= listing.country %></li>
             </ul>
+            <% if(currUser && currUser._id.equals(listing.owner._id)) { %>
             <div class="d-flex justify-content-between align-items-center mt-4">
                 <a href="/listings/<%= listing.id %>/edit" class="btn btn-warning btn-lg px-4">Edit</a>
                 <form method="POST" action="/listings/<%= listing.id %>?_method=DELETE" class="mb-0">
                     <button type="submit" class="btn btn-danger btn-lg px-4">Delete</button>
                 </form>
             </div>
+            <% } %>
         </div>
 
         <!-- Review Form Section -->

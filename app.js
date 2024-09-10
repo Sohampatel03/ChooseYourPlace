@@ -68,7 +68,6 @@ app.use((req , res , next) => {
     res.locals.success = req.flash("success");
     res.locals.Delete = req.flash("Delete");
     next(); 
-
 })
 app.use("/listings" , listings);
 app.use("/listings" , review);
