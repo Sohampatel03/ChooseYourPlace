@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -20,7 +21,10 @@ const flash = require("connect-flash");
 // ✅ MongoDB Connection
 // -----------------------
 async function main() {
-    await mongoose.connect('mongodb://127.0.0.1:27017/wanderlost');
+    await mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 }
 main()
     .then(() => console.log("✅ MongoDB Connected"))
@@ -40,7 +44,7 @@ app.use(methodOverride("_method"));
 // ✅ Session & Passport Setup
 // -----------------------
 const sessionOptions = {
-    secret: "mysupersecretstring",
+    secret: process.env.SECRET || "fallbacksecret",
     resave: false,
     saveUninitialized: false, // 🔹 better security practice
 };
@@ -111,6 +115,6 @@ app.use((err, req, res, next) => {
 // -----------------------
 // ✅ Server Start
 // -----------------------
-app.listen(2000, () => {
+app.listen(process.env.PORT || 2000, () => {
     console.log("🚀 Server running on port 2000");
 });

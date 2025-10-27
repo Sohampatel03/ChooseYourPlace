@@ -1,3 +1,4 @@
+require("dotenv").config({ path: "../.env" });
 const mongoose = require("mongoose");
 const initData = require("./data.js");
 const Listing = require("../models/listing.js");
@@ -9,7 +10,10 @@ main().then((res) => {
 })
 
 async function main() {
-    await mongoose.connect('mongodb://127.0.0.1:27017/wanderlost')
+    await mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 }
 
 
