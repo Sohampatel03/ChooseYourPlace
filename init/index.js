@@ -10,15 +10,13 @@ main().then((res) => {
 
 async function main() {
     await mongoose.connect('mongodb://127.0.0.1:27017/wanderlost')
-}   
-
-
+}
 
 
 const initDB = async () => {
     await Listing.deleteMany({});
-    initData.data = initData.data.map((obj) => ({...obj , owner : "66cf11a53f835e061ba63419"}));
-     await Listing.insertMany(initData.data);
+    initData.data = initData.data.map((obj) => ({ ...obj, owner: "66cf11a53f835e061ba63419" }));
+    await Listing.insertMany(initData.data);
 
 }
 initDB();

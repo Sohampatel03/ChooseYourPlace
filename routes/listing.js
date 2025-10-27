@@ -2,8 +2,8 @@ const express = require("express");
 const router = express.Router();
 const Listing = require("../models/listing");
 const wrapAsync = require("../utils/wrapAsync");
-const ExpressError = require("../utils/ExpressError");
 const {isLoggedIn} = require("../middleware");
+const {isOwner , validateListing} = require("../middleware");
 
 
 
@@ -45,10 +45,9 @@ router.get("/:id/edit",  isLoggedIn,wrapAsync(async (req, res) => {
     const listing = await Listing.findById(id);
     res.render("listings/edit.ejs", { listing });
 }));
-
-router.put("/:id", wrapAsync(async (req, res) => {
+//update route
+router.put("/:id",isOwner, wrapAsync(async (req, res) => {
     let { id } = req.params;
-    console.log(req.body);
     await Listing.findByIdAndUpdate(id, { ...req.body });
     req.flash("success" , "Successfully Updated");
     res.redirect(`/listings/${id}`);

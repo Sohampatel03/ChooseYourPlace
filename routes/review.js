@@ -3,31 +3,17 @@ const router = express.Router();
 const Listing = require("../models/listing");
 const wrapAsync = require("../utils/wrapAsync");
 const Review = require("../models/review");
+const {validateReview,isLoggedIn} = require("../middleware");
 
-
-
-const validateReview = (req, res, next) => {
-    const { error } = reviewsSchema.validate(req.body);
-    if (error) {
-        let errMsg = error.details.map((el) => el.message).join(",");
-        throw new ExpressError(404, errMsg);
-    } else {
-        next();
-    }
-};
-
-router.post("/:id/review", wrapAsync(async (req, res) => {
+router.post("/:id/review",isLoggedIn,validateReview ,wrapAsync(async (req, res) => {
     let listing = await Listing.findById(req.params.id);
     let id = req.params.id;
-    let newReview = new Review({
-        comment: req.body.comment,
-        rating: req.body.rating,
-    });
-
-    listing.reviews.push(newReview);
-    await newReview.save();
-    await listing.save();
-    console.log("new review save");
+    let newReview = new Review(req.body);
+    newReview.author = req.user._id;
+    console.log(newReview);
+    //listing.reviews.push(newReview);
+    //await newReview.save();
+    //await listing.save();
     req.flash("success" , "Review Successfully Added");
     res.redirect(`/listings/${id}`);
 }));
