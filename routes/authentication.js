@@ -2,15 +2,15 @@ const express = require("express");
 const router = express.Router();
 const wrapAsync = require("../utils/wrapAsync");
 const passport = require("passport");
-const { saveRedirectUrl } = require("../middleware");
+const { saveRedirectUrl , isLoggedOut } = require("../middleware");
 const User = require("../models/user");
 
 
-router.get("/signup", (req, res) => {
+router.get("/signup", isLoggedOut, (req, res) => {
     res.render("listings/signup.ejs");
 });
 
-router.post("/signup", saveRedirectUrl ,wrapAsync(async (req, res , next) => {
+router.post("/signup", isLoggedOut,saveRedirectUrl ,wrapAsync(async (req, res , next) => {
     try {
         let { username, email, password } = req.body;
         const newUser = new User({ email, username });
@@ -30,11 +30,11 @@ router.post("/signup", saveRedirectUrl ,wrapAsync(async (req, res , next) => {
 }));
 
 // Login route
-router.get("/login", (req, res) => {
+router.get("/login", isLoggedOut,(req, res) => {
     res.render("listings/login.ejs");
 });
 
-router.post("/login", saveRedirectUrl ,
+router.post("/login", isLoggedOut,saveRedirectUrl ,
     passport.authenticate("local", {
         failureRedirect: "/login",
     }),
