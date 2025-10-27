@@ -1,28 +1,66 @@
-<% 
-if(success && success.length)
-{ %>
-    <div class="alert alert-success alert-dismissible fade show col-6 offset-3" role="alert">
-    <%= success %>
-    <button 
-    type="button" 
-    class="btn-close"
-     data-bs-dismiss="alert" 
-     aria-label="Close">
-  </button>
+<% if(success && success.length) { %>
+  <div class="fixed top-20 right-4 z-50 animate-slide-in">
+    <div class="bg-green-50 border-l-4 border-green-500 rounded-lg shadow-lg p-4 max-w-md">
+      <div class="flex items-start">
+        <div class="flex-shrink-0">
+          <i class="fa-solid fa-circle-check text-green-500 text-xl"></i>
+        </div>
+        <div class="ml-3 flex-1">
+          <p class="text-sm font-medium text-green-900">
+            <%= success %>
+          </p>
+        </div>
+        <button 
+          type="button" 
+          class="ml-4 flex-shrink-0 text-green-500 hover:text-green-700 transition"
+          data-bs-dismiss="alert" 
+          aria-label="Close"
+        >
+          <i class="fa-solid fa-times"></i>
+        </button>
+      </div>
+    </div>
   </div>
- <% } %>
-<% 
-if(Delete && Delete.length)
-{ %>
-    <div class="alert alert-danger alert-dismissible fade show col-6 offset-3" role="alert">
-    <%= Delete %>
-    <button 
-    type="button" 
-    class="btn-close"
-     data-bs-dismiss="alert" 
-     aria-label="Close">
-  </button>
-  </div>
- <% } %>
+<% } %>
 
- 
+<% if(Delete && Delete.length) { %>
+  <div class="fixed top-20 right-4 z-50 animate-slide-in">
+    <div class="bg-red-50 border-l-4 border-red-500 rounded-lg shadow-lg p-4 max-w-md">
+      <div class="flex items-start">
+        <div class="flex-shrink-0">
+          <i class="fa-solid fa-circle-exclamation text-red-500 text-xl"></i>
+        </div>
+        <div class="ml-3 flex-1">
+          <p class="text-sm font-medium text-red-900">
+            <%= Delete %>
+          </p>
+        </div>
+        <button 
+          type="button" 
+          class="ml-4 flex-shrink-0 text-red-500 hover:text-red-700 transition"
+          data-bs-dismiss="alert" 
+          aria-label="Close"
+        >
+          <i class="fa-solid fa-times"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+<% } %>
+
+<style>
+  @keyframes slide-in {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
+  .animate-slide-in {
+    animation: slide-in 0.3s ease-out;
+  }
+</style>
