@@ -8,12 +8,15 @@
       </div>
 
       <!-- Mobile menu button -->
-      <button class="lg:hidden p-2 rounded-md text-gray-600 hover:bg-gray-100 transition" 
-              type="button" 
-              data-bs-toggle="collapse" 
-              data-bs-target="#navbarMenu">
+      <button 
+        id="menu-toggle"
+        class="lg:hidden p-2 rounded-md text-gray-600 hover:bg-gray-100 transition"
+        type="button"
+        aria-label="Toggle Menu"
+      >
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                d="M4 6h16M4 12h16M4 18h16" />
         </svg>
       </button>
 
@@ -27,7 +30,7 @@
         </a>
       </div>
 
-      <!-- User Actions -->
+      <!-- User Actions (Desktop) -->
       <div class="hidden lg:flex items-center space-x-3">
         <% if(!currUser) { %>
           <a href="/login" class="px-4 py-2 text-sm font-medium text-gray-700 hover:text-rose-500 transition-colors">
@@ -49,16 +52,13 @@
     </div>
 
     <!-- Mobile Navigation -->
-    <div class="collapse lg:hidden pb-4" id="navbarMenu">
+    <div id="mobile-menu" class="hidden lg:hidden pb-4">
       <div class="space-y-1 pt-2">
         <a href="/listings" class="block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-rose-50 hover:text-rose-500 rounded-lg transition">
           <i class="fa-solid fa-home mr-2"></i> Home
         </a>
         <a href="/listings/new" class="block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-rose-50 hover:text-rose-500 rounded-lg transition">
           <i class="fa-solid fa-plus mr-2"></i> Add Listing
-        </a>
-        <a href="#" class="block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-rose-50 hover:text-rose-500 rounded-lg transition">
-          <i class="fa-solid fa-tag mr-2"></i> Pricing
         </a>
         <% if(!currUser) { %>
           <a href="/login" class="block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-rose-50 hover:text-rose-500 rounded-lg transition">
@@ -80,3 +80,15 @@
     </div>
   </div>
 </nav>
+
+<!-- ✅ JS for toggle -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const toggleButton = document.getElementById("menu-toggle");
+    const mobileMenu = document.getElementById("mobile-menu");
+
+    toggleButton.addEventListener("click", () => {
+      mobileMenu.classList.toggle("hidden");
+    });
+  });
+</script>
