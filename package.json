@@ -13,6 +13,7 @@
   "description": "this project is like a Hotel B&amp;B Hotels",
   "dependencies": {
     "connect-flash": "^0.1.1",
+    "connect-mongo": "^5.1.0",
     "dotenv": "^17.2.3",
     "ejs": "^3.1.10",
     "ejs-mate": "^4.0.0",

@@ -5,10 +5,11 @@ const ExpressError = require("./utils/ExpressError");
 
 module.exports.isLoggedIn = (req, res, next) => {
     if (!req.isAuthenticated()) {
-        req.session.redirectUrl = req.originalUrl
-        req.flash("Delete", "Please Login First");
-        return res.redirect('/login');
-    }
+    // Store path without query params for cleaner redirects
+    req.session.redirectUrl = req.path || req.originalUrl;
+    req.flash("Delete", "Please Login First");
+    return res.redirect('/login');
+}
     next();
 }
 

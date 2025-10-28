@@ -14,15 +14,18 @@ const listings = require("./routes/listing");
 const review = require("./routes/review");
 const authentication = require("./routes/authentication");
 const flash = require("connect-flash");
+const MongoStore = require('connect-mongo');
 
 // -----------------------
 // ✅ MongoDB Connection
 // -----------------------
 async function main() {
     await mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        serverSelectionTimeoutMS: 5000, // Timeout after 5 seconds
+        socketTimeoutMS: 45000, // Close sockets after 45 seconds
+    });
 }
 main()
     .then(() => console.log("✅ MongoDB Connected"))
@@ -35,7 +38,10 @@ app.engine('ejs', ejsMate);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "public"), {
+    maxAge: '1d', // Cache static files for 1 day
+    etag: true
+}));
 app.use(methodOverride("_method"));
 
 // -----------------------
@@ -44,7 +50,19 @@ app.use(methodOverride("_method"));
 const sessionOptions = {
     secret: process.env.SECRET || "fallbacksecret",
     resave: false,
-    saveUninitialized: false, // 🔹 better security practice
+    saveUninitialized: false,
+    store: MongoStore.create({
+        mongoUrl: process.env.MONGO_URI,
+        touchAfter: 24 * 3600, // Update session once per 24 hours
+        crypto: {
+            secret: process.env.SECRET || "fallbacksecret"
+        }
+    }),
+    cookie: {
+        maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
+        httpOnly: true,
+        // secure: process.env.NODE_ENV === 'production', // Enable in production with HTTPS
+    }
 };
 app.use(session(sessionOptions));
 app.use(flash());
@@ -53,7 +71,13 @@ app.use(passport.initialize());
 app.use(passport.session());
 // Prevent browser caching for authenticated pages
 app.use((req, res, next) => {
-    res.set('Cache-Control', 'no-store');
+    // Only apply no-cache to authenticated routes
+    if (req.isAuthenticated && req.isAuthenticated()) {
+        res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+    } else {
+        // Allow caching for public pages
+        res.set('Cache-Control', 'public, max-age=300'); // 5 minutes
+    }
     next();
 });
 
