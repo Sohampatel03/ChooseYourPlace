@@ -53,7 +53,7 @@ const sessionOptions = {
     saveUninitialized: false,
     store: MongoStore.create({
         mongoUrl: process.env.MONGO_URI,
-        touchAfter: 24 * 3600, // Update session once per 24 hours
+        touchAfter: 24 * 3600,
         crypto: {
             secret: process.env.SECRET || "fallbacksecret"
         }
@@ -61,7 +61,8 @@ const sessionOptions = {
     cookie: {
         maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
         httpOnly: true,
-        // secure: process.env.NODE_ENV === 'production', // Enable in production with HTTPS
+        secure: process.env.NODE_ENV === 'production', // HTTPS only in production
+        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax', // Required for Vercel
     }
 };
 app.use(session(sessionOptions));

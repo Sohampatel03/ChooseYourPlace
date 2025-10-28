@@ -1,5 +1,5 @@
 <% if(success && success.length) { %>
-  <div class="fixed top-20 right-4 z-50 animate-slide-in">
+  <div class="fixed top-20 right-4 z-50 animate-slide-in flash-message">
     <div class="bg-green-50 border-l-4 border-green-500 rounded-lg shadow-lg p-4 max-w-md">
       <div class="flex items-start">
         <div class="flex-shrink-0">
@@ -12,8 +12,7 @@
         </div>
         <button 
           type="button" 
-          class="ml-4 flex-shrink-0 text-green-500 hover:text-green-700 transition"
-          data-bs-dismiss="alert" 
+          class="ml-4 flex-shrink-0 text-green-500 hover:text-green-700 transition close-flash"
           aria-label="Close"
         >
           <i class="fa-solid fa-times"></i>
@@ -24,7 +23,7 @@
 <% } %>
 
 <% if(Delete && Delete.length) { %>
-  <div class="fixed top-20 right-4 z-50 animate-slide-in">
+  <div class="fixed top-20 right-4 z-50 animate-slide-in flash-message">
     <div class="bg-red-50 border-l-4 border-red-500 rounded-lg shadow-lg p-4 max-w-md">
       <div class="flex items-start">
         <div class="flex-shrink-0">
@@ -37,8 +36,7 @@
         </div>
         <button 
           type="button" 
-          class="ml-4 flex-shrink-0 text-red-500 hover:text-red-700 transition"
-          data-bs-dismiss="alert" 
+          class="ml-4 flex-shrink-0 text-red-500 hover:text-red-700 transition close-flash"
           aria-label="Close"
         >
           <i class="fa-solid fa-times"></i>
@@ -64,3 +62,26 @@
     animation: slide-in 0.3s ease-out;
   }
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Handle manual close buttons
+    const closeButtons = document.querySelectorAll('.close-flash');
+    
+    closeButtons.forEach(function(button) {
+      button.addEventListener('click', function() {
+        const flashMessage = button.closest('.flash-message');
+        
+        if (flashMessage) {
+          flashMessage.style.transition = 'opacity 0.3s ease-out, transform 0.3s ease-out';
+          flashMessage.style.opacity = '0';
+          flashMessage.style.transform = 'translateX(100%)';
+          
+          setTimeout(function() {
+            flashMessage.remove();
+          }, 300);
+        }
+      });
+    });
+  });
+</script>

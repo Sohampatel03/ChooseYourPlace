@@ -75,13 +75,25 @@
   <script src="/js/script.js"></script>
 
   <!-- Auto-dismiss flash messages -->
-  <script>
-    setTimeout(() => {
-      document.querySelectorAll('.alert').forEach(alert => {
-        const bsAlert = bootstrap.Alert.getOrCreateInstance(alert);
-        bsAlert.close();
+ <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(function() {
+      // Find all flash message containers
+      const flashContainers = document.querySelectorAll('.animate-slide-in');
+      
+      flashContainers.forEach(function(container) {
+        // Fade out animation
+        container.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
+        container.style.opacity = '0';
+        container.style.transform = 'translateX(100%)';
+        
+        // Remove from DOM after animation
+        setTimeout(function() {
+          container.remove();
+        }, 500);
       });
-    }, 5000);
-  </script>
+    }, 5000); // Dismiss after 5 seconds
+  });
+</script>
 </body>
 </html>
