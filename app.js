@@ -5,9 +5,7 @@ const mongoose = require("mongoose");
 const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
-const wrapAsync = require("./utils/wrapAsync");
 const ExpressError = require("./utils/ExpressError");
-const { listingSchema, reviewsSchema } = require("./schema");
 const session = require("express-session");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
@@ -77,25 +75,13 @@ app.use((req, res, next) => {
 // ✅ Routes
 // -----------------------
 app.get("/", (req, res) => {
-    res.send("working");
+    res.redirect("/listings");
 });
 
 app.use("/listings", listings);
 app.use("/listings", review);
 app.use("/", authentication);
 
-// -----------------------
-// ✅ Session test routes (optional)
-// -----------------------
-app.get("/res", (req, res) => {
-    let { name = "unknown" } = req.query;
-    req.session.name = name;
-    res.redirect("/hello");
-});
-
-app.get("/hello", (req, res) => {
-    res.send(`hello ${req.session.name}`);
-});
 
 // -----------------------
 // ✅ Catch-all route (404)
